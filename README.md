@@ -71,3 +71,17 @@ Computes BLEU and ROUGE on validation/test samples.
 
 Uses small subset for quick evaluation.
 Defined in: src/multimodal/evaluate_multimodal.py
+
+7. Multimodal 
+
+Fine tunned the model on image specific dataset using vision encoder
+
+8. Inference
+
+Used vllm and TGI for faster inference
+
+9. Docker
+
+Created a docker image containing my docker file, requirement.txt, Multimodal, shell file.
+Pushed the docker image to docker hub and finally runing the fine tunned Multimodal on local host.
+
