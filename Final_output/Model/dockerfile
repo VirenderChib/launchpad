@@ -1,0 +1,36 @@
+# -------------------------------------------------------------
+# 1️⃣ Base Image - includes CUDA and Python
+# -------------------------------------------------------------
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+
+# -------------------------------------------------------------
+# 2️⃣ Set working directory inside the container
+# -------------------------------------------------------------
+WORKDIR /workspace
+
+# -------------------------------------------------------------
+# 3️⃣ Install system dependencies
+# -------------------------------------------------------------
+RUN apt-get update && apt-get install -y python3 python3-pip git && rm -rf /var/lib/apt/lists/*
+
+# -------------------------------------------------------------
+# 4️⃣ Copy your requirements file and install dependencies
+# -------------------------------------------------------------
+COPY requirementss.txt .
+RUN pip install --no-cache-dir -r requirementss.txt
+
+# -------------------------------------------------------------
+# 5️⃣ Copy your model and start script into the container
+# -------------------------------------------------------------
+COPY . /workspace/Final_output/Model/
+COPY start.sh /workspace/start.sh
+
+# -------------------------------------------------------------
+# 6️⃣ Expose the port your API will use
+# -------------------------------------------------------------
+EXPOSE 8000
+
+# -------------------------------------------------------------
+# 7️⃣ Command to start the API server
+# -------------------------------------------------------------
+CMD ["/bin/bash", "/workspace/start.sh"]
